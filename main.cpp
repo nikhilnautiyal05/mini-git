@@ -1,6 +1,5 @@
 #include<iostream>
 #include<sstream>
-<<<<<<< HEAD
 #include "header/cmds.hpp"
 using namespace std;
 int main(){
@@ -28,24 +27,6 @@ int main(){
         }
         else{
         cout<<"good to go";
-        }
-=======
-#include "header/init.hpp"
-using namespace std;
-int main(){
-    repo git;
-    string command;
-    cin>>command;
-    if(command=="init"){
-        git.init();
-        cout<<endl<<"Initialised successfully";
-    }
-    else if(git.isInitialized()){
-        cout<<"Create a directory first";
-    }
-    else{
-        cout<<"good to go";
->>>>>>> ad5b44737b3ad8c1e6521b018e7ec8e491b8dd9a
-    }
+        }}
     return 0;
 }
