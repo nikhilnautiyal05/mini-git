@@ -25,6 +25,7 @@ int main(){
             iss>>fn;
             git.add(fn);
         }
+        else if(cmd=="status"){git.status();}
         else{
         cout<<"good to go";
         }}

@@ -9,6 +9,7 @@ class repo{
     std::map<std::string, std::string> branches_; 
     public:
     repo();
+    void status();
     void init();
     void add(std::string filename);
     bool isInitialized(){return initialized_;}

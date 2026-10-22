@@ -49,3 +49,13 @@ void repo::add(std::string filename){
     save();
     cout << "Staged " << filename << " (" << hash.substr(0, 7) << ")"<<endl;
 }
+void repo::status() {
+    cout << "On branch " << currentBranch_ << "\n";
+    if (staging_.empty()) {
+        cout << "Nothing staged.\n";
+        return;
+    }
+    cout << "Staged files:\n";
+    for (MapIt it = staging_.begin(); it != staging_.end(); ++it)
+        cout << "  " << it->first << " (" << it->second.substr(0, 7) << ")\n";
+}
