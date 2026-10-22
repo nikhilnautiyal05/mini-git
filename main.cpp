@@ -17,7 +17,7 @@ int main(){
         git.init();
         cout<<endl<<"Initialised successfully"<<endl;
         }
-        else if(!git.isInitialized()){
+        else if(git.isInitialized()){
         cout<<"Create a directory first";
         }
         else if(cmd=="add"){
