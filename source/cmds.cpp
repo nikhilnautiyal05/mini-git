@@ -35,7 +35,8 @@ void repo::init(){
     }
     else {
         cerr << "Error creating folder.\n";
-    }}
+    }
+    }
 }
 void repo::add(std::string filename){
     string content;
