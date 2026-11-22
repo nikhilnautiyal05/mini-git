@@ -1,0 +1,5 @@
+build/
+minigit
+minigit.exe
+.minigit/
+*.o

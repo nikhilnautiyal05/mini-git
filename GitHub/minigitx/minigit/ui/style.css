@@ -1,0 +1,113 @@
+/* style.css - all colours, spacing and layout of the minigit page.
+   Change a value here, save, and press F5 in the browser to see it.
+   (:root holds the colour palette used everywhere below.) */
+
+:root{
+  color-scheme:dark;          /* makes scrollbars and form controls dark too */
+  --bg:#000000;               /* page background */
+  --card:#111111;             /* boxes */
+  --ink:#e8eaf0;              /* main text */
+  --muted:#9aa3b8;            /* secondary text */
+  --line:#2a2f3a;             /* borders */
+  --field:#0a0a0a;            /* input boxes */
+  --btn:#1c1f29;              /* buttons */
+  --hover:#1a1d26;            /* row hover */
+  --sel:#172554;              /* selected row */
+  --accent:#60a5fa;           /* links, highlights (text) */
+  --accent-bg:#2563eb;        /* filled blue buttons */
+  --ok:#4ade80;--warn:#fbbf24;--bad:#f87171
+}
+*{box-sizing:border-box}
+body{margin:0;font:14px/1.45 "Segoe UI",system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink);padding-bottom:230px}
+/* ---- top bar ---- */
+header{background:#0a0a0a;border-bottom:1px solid var(--line);color:#fff;padding:10px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:sticky;top:0;z-index:5}
+header h1{font-size:18px;margin:0;letter-spacing:.3px}
+header .dir{color:#9ca3af;font-size:12px;flex:1;min-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:600;background:#1f2937;color:#e5e7eb}
+.pill.branch{background:#1d4ed8;color:#fff}
+/* ---- buttons and inputs ---- */
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--btn);color:var(--ink);padding:6px 12px;border-radius:7px}
+button:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+button:disabled{opacity:.45;cursor:default}
+button.primary{background:var(--accent-bg);border-color:var(--accent-bg);color:#fff}
+button.primary:hover:not(:disabled){background:#1d4ed8;border-color:#1d4ed8;color:#fff}
+button.danger:hover:not(:disabled){border-color:var(--bad);color:var(--bad)}
+button.small{padding:2px 9px;font-size:12px}
+header button{background:#1f2937;border-color:#374151;color:#e5e7eb}
+header button:hover:not(:disabled){background:#374151;color:#fff;border-color:#4b5563}
+input[type=text],select,textarea{font:inherit;padding:7px 9px;border:1px solid var(--line);border-radius:7px;width:100%;background:var(--field);color:var(--ink)}
+input:focus,select:focus,textarea:focus{outline:2px solid #1d4ed8;border-color:var(--accent)}
+textarea{font-family:Consolas,"Courier New",monospace;font-size:13px;min-height:120px;resize:vertical}
+/* ---- page layout: two columns ---- */
+main{display:grid;grid-template-columns:minmax(330px,430px) 1fr;gap:16px;padding:16px 20px;align-items:start}
+@media(max-width:900px){main{grid-template-columns:1fr}}
+.col{display:flex;flex-direction:column;gap:16px;min-width:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.card h2{font-size:12px;margin:0 0 10px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}
+.row{display:flex;gap:8px;align-items:center}
+.row>input,.row>select{flex:1}
+/* ---- file list, badges, branches ---- */
+.files{list-style:none;margin:0 0 10px;padding:0;max-height:230px;overflow:auto}
+.files li{display:flex;align-items:center;gap:8px;padding:5px 4px;border-bottom:1px solid var(--line)}
+.files li:last-child{border:0}
+.files .name{flex:1;cursor:pointer;word-break:break-all;font-family:Consolas,monospace;font-size:13px}
+.files .name:hover{color:var(--accent);text-decoration:underline}
+.badge{font-size:11px;font-weight:600;padding:1px 8px;border-radius:99px;white-space:nowrap}
+.badge.ok{background:#14532d;color:#86efac}.badge.warn{background:#451a03;color:#fcd34d}
+.badge.muted{background:#262b36;color:#aeb6c8}.badge.clean{background:#181b23;color:#8a93a8;font-weight:400}
+.empty{color:var(--muted);padding:6px 0}
+.branches{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.bpill{display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:99px;padding:3px 4px 3px 12px;font-weight:600}
+.bpill.cur{background:#172554;border-color:#1d4ed8;color:#93c5fd}
+.bpill .tip{font:11px Consolas,monospace;color:var(--muted);font-weight:400}
+.sep{height:1px;background:var(--line);margin:12px 0}
+.banner{border-radius:10px;padding:10px 14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.banner.warn{background:#2a1c05;border:1px solid #92400e;color:#fcd34d}
+.banner.bad{background:#2d0a0a;border:1px solid #991b1b;color:#fca5a5}
+.banner span{flex:1}
+/* ---- commit history (the graph itself is drawn in app.js) ---- */
+.hist{position:relative;overflow-x:auto}
+.hist svg{position:absolute;left:0;top:0;pointer-events:none}
+.crow{display:flex;align-items:center;gap:10px;cursor:pointer;border-radius:8px;white-space:nowrap}
+.crow:hover{background:var(--hover)}.crow.sel{background:var(--sel)}
+.crow .hash{font:12px Consolas,monospace;color:var(--accent)}
+.crow .msg{font-weight:600;overflow:hidden;text-overflow:ellipsis;max-width:340px}
+.crow .meta{margin-left:auto;color:var(--muted);font-size:12px;padding-right:8px}
+.tag{font-size:11px;font-weight:700;padding:1px 8px;border-radius:5px}
+.tag.head{background:#1d4ed8;color:#fff}.tag.br{background:#14532d;color:#86efac}
+.detail{margin-top:12px;border-top:1px solid var(--line);padding-top:12px}
+.detail .kv{color:var(--muted);font-size:13px}.detail code{font-family:Consolas,monospace;font-size:12px;color:var(--ink)}
+.detail .msgfull{font-size:15px;font-weight:600;margin:4px 0 8px;white-space:pre-wrap}
+pre.diff{margin:10px 0 0;background:#0a0f1c;border:1px solid var(--line);color:#e2e8f0;border-radius:9px;padding:10px 12px;max-height:300px;overflow:auto;font:12px/1.5 Consolas,"Courier New",monospace}
+pre.diff .a{color:#4ade80}pre.diff .d{color:#f87171}pre.diff .h{color:#60a5fa}pre.diff .f{color:#fff;font-weight:700}pre.diff .t{color:#fbbf24;font-weight:700}
+.results{margin-top:8px}.results div{padding:4px 6px;border-radius:6px;cursor:pointer}.results div:hover{background:var(--sel)}
+.results code{color:var(--accent);margin-right:8px}
+/* ---- command output panel at the bottom ---- */
+#consolewrap{position:fixed;left:0;right:0;bottom:0;background:#050505;color:#d1d5db;border-top:3px solid #1f2937;z-index:6}
+#consolewrap .bar{display:flex;justify-content:space-between;align-items:center;padding:5px 16px;color:#9ca3af;font-size:12px;text-transform:uppercase;letter-spacing:.8px}
+#consolewrap button{background:transparent;color:#9ca3af;border-color:#374151;padding:1px 9px;font-size:12px}
+#console{height:170px;overflow:auto;padding:4px 16px 10px;font:13px/1.5 Consolas,"Courier New",monospace}
+#console .cmd{color:#67e8f9;margin-top:6px}#console .out{white-space:pre-wrap}
+#console .err{color:#fca5a5;white-space:pre-wrap}#console .note{color:#86efac}
+.center{max-width:520px;margin:60px auto;text-align:center}
+.center .card{text-align:left}.center h2{font-size:20px;color:var(--ink);text-transform:none;letter-spacing:0}
+.field{margin:10px 0}.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:3px}
+#conn{display:none;background:#b91c1c;color:#fff;text-align:center;padding:6px;font-weight:600}
+
+/* ---- link that looks like a button, hints, change summary ---- */
+a.btn{display:inline-block;text-decoration:none;font:inherit;padding:6px 12px;border-radius:7px;border:1px solid var(--line);background:var(--btn);color:var(--ink)}
+a.btn:hover{border-color:var(--accent);color:var(--accent)}
+a.btn.primary{background:var(--accent-bg);border-color:var(--accent-bg);color:#fff}
+a.btn.primary:hover{background:#1d4ed8;border-color:#1d4ed8;color:#fff}
+.hint{margin:0 0 10px;color:var(--muted)}
+.changeinfo{margin:12px 0;padding:8px 10px;background:#181b23;border-radius:8px;color:var(--ink)}
+
+/* ---- editor page (editor.html) ---- */
+.editor-layout{display:grid;grid-template-columns:minmax(240px,320px) 1fr;gap:16px;padding:16px 20px;align-items:start}
+@media(max-width:800px){.editor-layout{grid-template-columns:1fr}}
+.editor-layout textarea{min-height:380px}
+.savemsg{margin-top:10px;min-height:20px;color:var(--ok)}
+.savemsg.bad{color:var(--bad)}
+header a{color:#93c5fd;text-decoration:none}
+header a:hover{text-decoration:underline}
+body.editor{padding-bottom:0}

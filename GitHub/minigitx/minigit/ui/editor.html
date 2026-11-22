@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!-- editor.html - a separate page for writing data into files.
+     Looks come from style.css, behaviour from editor.js. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>minigit - file editor</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="editor">
+<!-- Top bar: title, the project folder, and a link back to the main page -->
+<header>
+  <h1>File editor</h1>
+  <span class="dir" id="dir"></span>
+  <a href="/" id="back">&larr; Back to minigit</a>
+</header>
+
+<div class="editor-layout">
+  <!-- Left: the files in the project folder. Click one to open it. -->
+  <div class="card">
+    <h2>Files in the project folder</h2>
+    <ul class="files" id="files"></ul>
+    <button id="bNew">+ New file</button>
+  </div>
+
+  <!-- Right: write the data here and press Save -->
+  <div class="card">
+    <h2>Write data into a file</h2>
+    <div class="field" style="margin-top:0">
+      <label for="fName">File name</label>
+      <input type="text" id="fName" placeholder="for example notes.txt or src/main.cpp">
+    </div>
+    <div class="field">
+      <label for="fText">Content</label>
+      <textarea id="fText" placeholder="Type the data you want to store in this file"></textarea>
+    </div>
+    <div class="row">
+      <button class="primary" id="bSave">Save file (Ctrl+S)</button>
+      <button class="danger" id="bDelete">Delete file</button>
+    </div>
+    <div class="savemsg" id="savemsg"></div>
+    <p class="hint">After saving, go back to the minigit page and click <b>Stage all changes</b>, then <b>Commit</b>.</p>
+  </div>
+</div>
+
+<script src="editor.js"></script>
+</body>
+</html>

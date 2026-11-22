@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!-- index.html - the structure of the minigit page (what is on the screen).
+     Looks are in style.css, behaviour is in app.js. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>minigit</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Red warning shown when the minigit program stops answering -->
+<div id="conn">Cannot reach the minigit program. Is its window still open?</div>
+<!-- Top bar: name, folder, current branch, Undo / Redo / Verify / Stats -->
+<header>
+  <h1>minigit</h1>
+  <span class="dir" id="dir"></span>
+  <span id="repoTools" style="display:none"><select id="repoSelectMain"></select><button id="bSwitchRepo">Switch</button><button id="bManageRepos">Repositories</button></span>
+  <span id="branchpill"></span>
+  <button id="bUndo" title="Undo the last commit, branch, checkout or merge">&#8630; Undo</button>
+  <button id="bRedo" title="Redo what was undone">Redo &#8631;</button>
+  <button id="bVerify" title="Check every stored object for corruption">Verify</button>
+  <button id="bStats" title="Commit and file statistics">Stats</button>
+</header>
+
+<!-- Repository manager: each repository is stored in Repositories/<name>. -->
+<div id="initview" class="center" style="display:none">
+  <div class="card">
+    <h2>MiniGitX Repository Manager</h2>
+    <p class="hint">Create a named repository or open an existing one. Every repository is stored inside the Repositories folder.</p>
+    <div class="empty" id="initdir" style="margin-bottom:10px"></div>
+    <div class="field"><label>New repository name</label><input type="text" id="iRepo" placeholder="e.g. CollegeProject"></div>
+    <div class="field"><label>Your name</label><input type="text" id="iName" placeholder="e.g. Ayush"></div>
+    <div class="field"><label>Your email</label><input type="text" id="iMail" placeholder="e.g. you@example.com"></div>
+    <button class="primary" id="bInit">Create repository</button>
+    <div class="sep"></div>
+    <h3>Existing repositories</h3>
+    <div class="row">
+      <select id="repoSelect"><option value="">Select a repository</option></select>
+      <button id="bOpenRepo">Open repository</button>
+    </div>
+    <div class="hint">Repository data and files will remain inside each repository's own folder.</div>
+  </div>
+</div>
+
+<!-- Main screen: left column = work, right column = history -->
+<main id="mainview" style="display:none">
+  <div class="col">
+    <!-- Step 1: write your data on the editor page (opens in a new tab), then stage it here -->
+    <div class="card">
+      <h2>1 &middot; Write your data, then stage it</h2>
+      <p class="hint">Write or change files on the editor page, then come back here and stage the changes.</p>
+      <div class="row">
+        <a class="btn primary" href="editor.html" target="_blank" rel="noopener">Open file editor &#8599;</a>
+      </div>
+      <div class="changeinfo" id="changeinfo"></div>
+      <div class="row">
+        <button id="bStageAll">Stage all changes</button>
+        <button id="bChanges">Show changes</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>2 &middot; Commit staged files</h2>
+      <div class="row">
+        <input type="text" id="cMsg" placeholder="Commit message">
+        <button class="primary" id="bCommit">Commit</button>
+      </div>
+      <div class="empty" id="stagedinfo"></div>
+    </div>
+
+    <div class="card">
+      <h2>Branches</h2>
+      <div class="branches" id="branches"></div>
+      <div class="row"><input type="text" id="nbName" placeholder="new branch name"><button id="bNewBranch">Create &amp; switch</button></div>
+      <div class="sep"></div>
+      <div class="row"><select id="mergeSel"></select><button id="bMerge">Merge into current</button></div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div id="mergebanner"></div>
+    <div class="card">
+      <h2>3 &middot; History</h2>
+      <div class="row" style="margin-bottom:12px">
+        <input type="text" id="sQ" placeholder="Search commits by word or prefix (uses the trie)">
+        <button id="bSearch">Search</button>
+      </div>
+      <div class="results" id="results"></div>
+      <div class="hist" id="hist"></div>
+      <div class="detail" id="detail" style="display:none"></div>
+    </div>
+    <div class="card" id="diffcard" style="display:none">
+      <h2 id="difftitle">Changes</h2>
+      <pre class="diff" id="diffbox"></pre>
+    </div>
+  </div>
+</main>
+
+<!-- Bottom panel: shows the real minigit command behind every click -->
+<div id="consolewrap">
+  <div class="bar"><span>Command output</span><button id="bClear">Clear</button></div>
+  <div id="console"></div>
+</div>
+
+
+<script src="app.js"></script>
+</body>
+</html>
